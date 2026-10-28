@@ -204,6 +204,18 @@ class LuxCoreConfigPath(PropertyGroup):
     hybridbackforward_glossinessthresh: FloatProperty(name="Glossiness Threshold", default=0.049, min=0, max=1,
                                                       description=HYBRID_BACKFORWARD_GLOSSINESS_DESC)
 
+    # path.guiding.enable
+    use_guiding: BoolProperty(name="Path Guiding", default=False,
+                              description="Learn where the light comes from during the first samples "
+                                          "and send more indirect rays there (GPU path only). "
+                                          "Helps interiors lit through openings; can be slower "
+                                          "on simple outdoor scenes")
+    # path.guiding.trainingspp
+    guiding_trainingspp: IntProperty(name="Training Samples", default=64, min=2, soft_max=1024,
+                                     description="Samples per pixel used to learn the light "
+                                                 "distribution; the guide is updated at 2, 4, 8, ... "
+                                                 "samples up to this value and then kept fixed")
+
     use_clamping: BoolProperty(name="Clamp Output", default=False, description=CLAMPING_DESC)
     # path.clamping.variance.maxvalue
     clamping: FloatProperty(name="Max Brightness", default=10, min=0,soft_max=10000,  description=CLAMPING_DESC)

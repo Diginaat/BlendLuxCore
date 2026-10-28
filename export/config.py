@@ -403,6 +403,10 @@ def _convert_path(
     definitions["path.pathdepth.glossy"] = path.depth_glossy + 1
     definitions["path.pathdepth.specular"] = path.depth_specular
 
+    # Path guiding (used by PATHOCL only)
+    definitions["path.guiding.enable"] = path.use_guiding
+    definitions["path.guiding.trainingspp"] = path.guiding_trainingspp
+
     if not utils.using_photongi_debug_mode(is_viewport_render, scene):
         if device == "OCL":
             partition_raw = path.hybridbackforward_lightpartition_opencl

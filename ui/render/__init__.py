@@ -14,6 +14,7 @@ classes = (
     caches.LUXCORE_RENDER_PT_caches_DLSC_persistence,
     config.LUXCORE_RENDER_PT_lightpaths,
     config.LUXCORE_RENDER_PT_lightpaths_bounces,
+    config.LUXCORE_RENDER_PT_path_guiding,
     config.LUXCORE_RENDER_PT_add_light_tracing,
     config.LUXCORE_RENDER_PT_lightpaths_clamping,
     debug.LUXCORE_RENDER_PT_debug_settings,

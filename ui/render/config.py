@@ -100,6 +100,44 @@ class LUXCORE_RENDER_PT_lightpaths_bounces(RenderButtonsPanel, Panel):
             col.prop(config, "bidir_light_maxdepth")
 
 
+class LUXCORE_RENDER_PT_path_guiding(RenderButtonsPanel, Panel):
+    COMPAT_ENGINES = {"LUXCORE"}
+    bl_label = "Path Guiding"
+    bl_parent_id = "LUXCORE_RENDER_PT_lightpaths"
+    bl_options = {"DEFAULT_CLOSED"}
+
+    @classmethod
+    def poll(cls, context):
+        config = context.scene.luxcore.config
+        engine = context.scene.render.engine
+        return (
+            config.engine == "PATH"
+            and not config.use_tiles
+            and engine == "LUXCORE"
+        )
+
+    def draw_header(self, context):
+        layout = self.layout
+        config = context.scene.luxcore.config
+        layout.prop(config.path, "use_guiding", text="")
+
+        if config.path.use_guiding and config.device != "OCL":
+            layout.label(icon=icons.WARNING)
+
+    def draw(self, context):
+        layout = self.layout
+        config = context.scene.luxcore.config
+
+        layout.use_property_split = True
+        layout.use_property_decorate = False
+        layout.enabled = config.path.use_guiding
+
+        layout.prop(config.path, "guiding_trainingspp")
+
+        if config.device != "OCL":
+            layout.label(text="Only used when rendering on the GPU", icon=icons.WARNING)
+
+
 class LUXCORE_RENDER_PT_add_light_tracing(RenderButtonsPanel, Panel):
     COMPAT_ENGINES = {"LUXCORE"}
     bl_label = "Light Tracing"
