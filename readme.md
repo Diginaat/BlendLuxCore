@@ -1,3 +1,58 @@
+## BlendLuxCore, CUDA/OptiX GPU-optimized fork (Diginaat)
+
+> **For now this addon works only with Blender 4.5 LTS on Windows x64.**
+> The bundled pyluxcore is built for the Python 3.11 of Blender 4.5.
+> Blender 5.x, Linux and macOS are not supported yet; use the official
+> BlendLuxCore there.
+
+This fork of [BlendLuxCore](https://github.com/LuxCoreRender/BlendLuxCore)
+ships the [CUDA/OptiX GPU-optimized LuxCore](https://github.com/Diginaat/LuxCore).
+GPU renders on NVIDIA cards are faster; the default image is the same as
+with the original LuxCore (unbiased).
+
+### Speed compared to the original
+
+Million samples per second on an RTX 5070 (`luxcoreconsole`, `PATHOCL`,
+CUDA + OptiX, median of 3 runs of 30 s, kernels already compiled, adaptive
+sampling off). Original = upstream LuxCore `ce1d64155`.
+
+| Scene | Original LuxCore | This fork | Change |
+|---|---|---|---|
+| LuxBall | 11.94 | 18.00 | +51% |
+| DLSC | 12.37 | 21.59 | +75% |
+| LuxCore2.1Benchmark | 11.16 | 16.00 | +43% |
+| DanishMood | 7.68 | 13.14 | +71% |
+| LynxSpider | 5.39 | 15.38 | +185% |
+
+Inside Blender 4.5 (LuxMark LuxBall, final render, GPU): 24.67 to 35.12
+million samples per second (+42%). The Blender viewport uses another
+engine (`RTPATHOCL`); its speed-up is not measured yet.
+
+Details and the full list of engine changes: [Diginaat/LuxCore](https://github.com/Diginaat/LuxCore).
+
+### What is different from the original addon
+
+- The addon zip bundles the fork's pyluxcore wheel. The original addon
+  downloads the stock pyluxcore from PyPI.
+- Render properties > Light Paths > **Path Guiding** (GPU path engine only,
+  off by default, experimental).
+- Extension name `BlendLuxCoreDiginaat`; the manifest allows only
+  Blender 4.5 (`blender_version_max = "4.6.0"`) and Windows x64.
+
+### Install
+
+1. Download `BlendLuxCoreDiginaat-*.zip` from
+   [Releases](https://github.com/Diginaat/BlendLuxCore/releases).
+2. In Blender 4.5, remove an installed BlendLuxCore first
+   (Edit > Preferences > Add-ons), then restart Blender.
+3. Edit > Preferences > Get Extensions > menu at the top right >
+   Install from Disk, and pick the zip.
+4. Select the LuxCore render engine and set the device to GPU.
+
+The original readme follows.
+
+---
+
 <p align="center">
 <h1 align="center">BlendLuxCore</h1>
 </p>
