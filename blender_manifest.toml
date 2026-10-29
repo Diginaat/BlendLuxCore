@@ -26,8 +26,9 @@ blender_version_min = "4.5.0"
 # # Optional: Blender version that the extension does not support, earlier versions are supported.
 # # This can be omitted and defined later on the extensions platform if an issue is found.
 # blender_version_max = "5.1.0"
-# GPU-optimized fork: the bundled pyluxcore is built for Python 3.11 (Blender 4.5 only)
-blender_version_max = "4.6.0"
+# GPU-optimized fork: bundled pyluxcore wheels for Python 3.11 (Blender 4.5 LTS) and
+# Python 3.13 (Blender 5.2 LTS); Blender installs the one matching its Python
+blender_version_max = "5.3.0"
 
 # License conforming to https://spdx.org/licenses/ (use "SPDX: prefix)
 # https://docs.blender.org/manual/en/dev/advanced/extensions/licenses.html
@@ -41,7 +42,7 @@ license = [
 # ]
 
 # # Optional: list of supported platforms. If omitted, the extension will be available in all operating systems.
-# GPU-optimized fork: the bundled pyluxcore is a Windows x64 build only
+# GPU-optimized fork: the bundled pyluxcore wheels are Windows x64 builds only
 platforms = ["windows-x64"]
 
 # Optional: bundle 3rd party Python modules.

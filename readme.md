@@ -1,9 +1,17 @@
 ## BlendLuxCore, CUDA/OptiX GPU-optimized fork (Diginaat)
 
-> **For now this addon works only with Blender 4.5 LTS on Windows x64.**
-> The bundled pyluxcore is built for the Python 3.11 of Blender 4.5.
-> Blender 5.x, Linux and macOS are not supported yet; use the official
-> BlendLuxCore there.
+> **Works with Blender 4.5 LTS and Blender 5.2 LTS, on Windows x64.**
+> One zip for both: it bundles a pyluxcore build for each Blender
+> (Python 3.11 for 4.5, Python 3.13 for 5.2), and Blender installs the
+> one that matches. Linux and macOS are not supported yet; use the
+> official BlendLuxCore there.
+
+| Blender | Python | Status |
+|---|---|---|
+| 4.5 LTS | 3.11 | supported, tested |
+| 5.2 LTS | 3.13 | supported, tested |
+| 5.0, 5.1 | 3.11, 3.13 | may work, not tested |
+| Linux, macOS | | not supported |
 
 This fork of [BlendLuxCore](https://github.com/LuxCoreRender/BlendLuxCore)
 ships the [CUDA/OptiX GPU-optimized LuxCore](https://github.com/Diginaat/LuxCore).
@@ -24,27 +32,36 @@ sampling off). Original = upstream LuxCore `ce1d64155`.
 | DanishMood | 7.68 | 13.14 | +71% |
 | LynxSpider | 5.39 | 15.38 | +185% |
 
-Inside Blender 4.5 (LuxMark LuxBall, final render, GPU): 24.67 to 35.12
-million samples per second (+42%). The Blender viewport uses another
-engine (`RTPATHOCL`); its speed-up is not measured yet.
+Inside Blender (LuxMark LuxBall, final render, GPU, million samples per
+second):
+
+| Blender | Original addon | This fork | Change |
+|---|---|---|---|
+| 4.5 LTS | 24.67 | 35.12 | +42% |
+| 5.2 LTS | 25.20 | 35.14 | +39% |
+
+The Blender viewport uses another engine (`RTPATHOCL`); its speed-up is
+not measured yet.
 
 Details and the full list of engine changes: [Diginaat/LuxCore](https://github.com/Diginaat/LuxCore).
 
 ### What is different from the original addon
 
-- The addon zip bundles the fork's pyluxcore wheel. The original addon
-  downloads the stock pyluxcore from PyPI.
+- The addon zip bundles the fork's pyluxcore wheels (one for Blender 4.5,
+  one for Blender 5.2). The original addon downloads the stock pyluxcore
+  from PyPI.
 - Render properties > Light Paths > **Path Guiding** (GPU path engine only,
   off by default, experimental).
-- Extension name `BlendLuxCoreDiginaat`; the manifest allows only
-  Blender 4.5 (`blender_version_max = "4.6.0"`) and Windows x64.
+- Extension name `BlendLuxCoreDiginaat`; the manifest allows Blender 4.5
+  up to 5.2 (`blender_version_max = "5.3.0"`) and only Windows x64.
 
 ### Install
 
 1. Download `BlendLuxCoreDiginaat-*.zip` from
    [Releases](https://github.com/Diginaat/BlendLuxCore/releases).
-2. In Blender 4.5, remove an installed BlendLuxCore first
-   (Edit > Preferences > Add-ons), then restart Blender.
+2. In Blender 4.5 or 5.2, remove an installed BlendLuxCore first
+   (Edit > Preferences > Add-ons), then restart Blender. Do this in each
+   Blender version you use: each has its own add-ons.
 3. Edit > Preferences > Get Extensions > menu at the top right >
    Install from Disk, and pick the zip.
 4. Select the LuxCore render engine and set the device to GPU.
