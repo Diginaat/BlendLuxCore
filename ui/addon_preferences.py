@@ -64,7 +64,9 @@ class LuxCoreAddonPreferences(AddonPreferences):
             1,
         ),
     ]
-    gpu_backend: EnumProperty(items=gpu_backend_items, default="OPENCL")
+    # GPU-optimized fork: default to CUDA/OptiX, the backend the fork's speed-ups
+    # are made for (upstream default: OpenCL). AMD/Intel GPUs: select OpenCL
+    gpu_backend: EnumProperty(items=gpu_backend_items, default="CUDA")
 
     def film_device_items_callback(self, context):
         """List items for Film Device property (callback)."""
