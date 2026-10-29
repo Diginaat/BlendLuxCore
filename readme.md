@@ -40,6 +40,11 @@ second):
 | 4.5 LTS | 24.67 | 35.12 | +42% |
 | 5.2 LTS | 25.20 | 35.14 | +39% |
 
+The GPU API matters: in Blender 4.5 (luxball.blend, 1000x1000, through
+the addon) OpenCL gives 13.7 and CUDA/OptiX 19.3 million samples per
+second (+41%), with the same image. This fork's addon uses CUDA/OptiX by
+default; the original addon uses OpenCL.
+
 The Blender viewport uses another engine (`RTPATHOCL`); its speed-up is
 not measured yet.
 
@@ -50,6 +55,8 @@ Details and the full list of engine changes: [Diginaat/LuxCore](https://github.c
 - The addon zip bundles the fork's pyluxcore wheels (one for Blender 4.5,
   one for Blender 5.2). The original addon downloads the stock pyluxcore
   from PyPI.
+- GPU API default: CUDA/OptiX (original: OpenCL). AMD or Intel GPU: select
+  OpenCL in Edit > Preferences > Add-ons > BlendLuxCore.
 - Render properties > Light Paths > **Path Guiding** (GPU path engine only,
   off by default, experimental).
 - Extension name `BlendLuxCoreDiginaat`; the manifest allows Blender 4.5
@@ -65,6 +72,9 @@ Details and the full list of engine changes: [Diginaat/LuxCore](https://github.c
 3. Edit > Preferences > Get Extensions > menu at the top right >
    Install from Disk, and pick the zip.
 4. Select the LuxCore render engine and set the device to GPU.
+5. If you used BlendLuxCore before: check that Edit > Preferences >
+   Add-ons > BlendLuxCore > GPU API is **CUDA/OptiX**. A saved older
+   setting can still say OpenCL.
 
 The original readme follows.
 
